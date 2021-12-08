@@ -269,7 +269,7 @@ const data = [
 					},
 					{
 						question: "¿Desde dónde partió Cristobal Colón?",
-						answers: ["Chiclana de la Frontera", "Palos de la Frontera ", "Cádiz"],
+						answers: ["Chiclana de la Frontera", "Palos de la Frontera (Huelva) ", "Cádiz"],
 					},
 				],
 			},
@@ -346,7 +346,7 @@ const data = [
 						question: "¿Qué se firmó tras la victoria de Felipe II contra Francia en San Quintín?",
 						answers: ["La paz de Cambrai", "La paz de Cateau-Cambresis ", "La Paz de Augsburgo"],
 					},
-					{ question: "¿En qué año se firmó la paz de Cateau-Cambresis?", answers: ["1559 ", "1557", "1552"] },
+					{ question: "¿En qué año se firmó la paz de Cateau-Cambresis?", answers: ["1559 ", "1557", "1552"], isDate: true },
 					// { question: "¿En qué año ocurrió la paz de Cateau-Cambresis?", answers: ["", "", ""] },   //San Quintín
 					{
 						question: "¿Quienes formaban parte de la Liga Santa?",
@@ -671,6 +671,7 @@ const data = [
 					{
 						question: "¿En cuántos ciclos se pueden dividir la producción teatral de Valle-Inclán?",
 						answers: ["6", "3 ", "4"],
+						isDate: true,
 					},
 					{
 						question: "¿Cuál de los siguientes ciclos fue el primero?",
@@ -760,6 +761,31 @@ const data = [
 						question: "¿Qué es 'Martes de carnaval'?",
 						answers: ["Una trilogía ", "Una obra perteneciente a una trilogía", "Una obra suelta del ciclo del esperpento"],
 					},
+				],
+			},
+			{
+				name: "García Lorca",
+				questions: [
+					{ question: "¿En qué año nació Federico García Lorca?", answers: ["1898 ", "1882", "1892"], isDate: true },
+					{
+						question: "¿Dónde nació Federico García Lorca?",
+						answers: ["Fuente Vaqueros (Granada) ", "Madrid", "Palos de la Frontera (Huelva)"],
+					},
+					{
+						question: "¿Qué estudió Federico García Lorca?",
+						answers: ["Medicina", "Derecho y Filosofía y Letras ", "Artes y Filología Hispánica"],
+					},
+					{
+						question: "¿Cuánto tiempo estuvo viviendo en la Residencia de Estudiantes de Madrid?",
+						answers: ["Desde 1919 hasta 1928 ", "Desde 1920 hasta 1930", "Desde 1921 hasta 1925"],
+					},
+					{ question: "¿En qué año murió Federico García Lorca?", answers: ["1939", "1942", "1936 "], isDate: true },
+					{
+						question: "¿Cómo murió Federico García Lorca?",
+						answers: ["Fusilado ", "De tuberculosis", "De un ataque al corazón"],
+					},
+					{ question: "¿En qué año viajó a Nueva York?", answers: ["1929 ", "1925", "1932"], isDate: true },
+					// //{ question: "¿?", answers: ["", "", ""] },
 				],
 			},
 		],

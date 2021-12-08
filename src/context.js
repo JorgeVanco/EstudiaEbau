@@ -24,11 +24,8 @@ const AppProvider = ({ children }) => {
 
 	useEffect(() => {
 		setLoading(true);
-	}, [user]);
-
-	useEffect(() => {
 		getDataBase();
-	}, []);
+	}, [user]);
 
 	const getDataBase = async () => {
 		// const docRef = doc(db, "puntuacion-usuarios", "score");

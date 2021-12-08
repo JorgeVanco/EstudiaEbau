@@ -57,11 +57,9 @@ const MainContent = () => {
 					<div className='add'>{/* <p>Hello</p> */}</div>
 				</div>
 				<div className='ranked-div'>
-					{/* <Link to='/ranked'> */}
 					<button type='btn' className='ranked-btn' onClick={handle_button}>
 						Pon a prueba tus conocimientos
 					</button>
-					{/* </Link> */}
 				</div>
 				{topFive && (
 					<div className='table-div'>
@@ -88,7 +86,7 @@ const MainContent = () => {
 								</tbody>
 							</table>
 						) : (
-							<h3>Sé el primero en puntuar</h3>
+							<h3>{user ? "Sé el primero en puntuar" : "Inicia sesión para ver el ranking"}</h3>
 						)}
 					</div>
 				)}
