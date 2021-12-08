@@ -26,6 +26,20 @@ const RankedPage = () => {
 	const [rankedPercentage, setRankedPercentage] = useState(0);
 	const [timer, setTimer] = useState(0);
 	const [myInterval, setMyInterval] = useState(null);
+	const [startingTime, setStartingTime] = useState(null);
+	const [timerStopped, setTimerStopped] = useState(false);
+	// let startingTime;
+	useEffect(() => {
+		// subjectToAskFor.temas.forEach((tema) => {
+		// 	if (contentToAskFor.includes(tema.name)) {
+		// 		list = [...list, ...tema.questions];
+		// 	} else {
+		// 	}
+		// });
+		setRightAnswers(0); //para evitar que pueda tener corretas sin hacetrlas al bajar contenido
+		getDataBase();
+		resetRanked();
+	}, []);
 
 	useEffect(() => {
 		createTimer();
@@ -33,7 +47,9 @@ const RankedPage = () => {
 	}, [index]);
 
 	useEffect(() => {
-		if (timer >= 10) finishRanked();
+		if (!timerStopped) {
+			if (timer >= 10 || (new Date().getTime() - startingTime >= 10500 && startingTime != null)) finishRanked();
+		}
 	}, [timer]);
 
 	const createTimer = () => {
@@ -42,23 +58,15 @@ const RankedPage = () => {
 				setTimer((timer) => timer + 0.1);
 			}, 100)
 		);
+		setTimerStopped(false);
+		setStartingTime(new Date().getTime());
+		// startingTime = new Date().getTime();
 	};
 
 	const stopTimer = () => {
 		clearInterval(myInterval);
+		setTimerStopped(true);
 	};
-
-	useEffect(() => {
-		getDataBase();
-		resetRanked();
-		// subjectToAskFor.temas.forEach((tema) => {
-		// 	if (contentToAskFor.includes(tema.name)) {
-		// 		list = [...list, ...tema.questions];
-		// 	} else {
-		// 	}
-		// });
-		setRightAnswers(0); //para evitar que pueda tener corretas sin hacetrlas al bajar contenido
-	}, []);
 
 	useEffect(() => {
 		currentScore > maxScore
@@ -78,13 +86,18 @@ const RankedPage = () => {
 
 	const resetRanked = () => {
 		let list = [];
+		// let newListTEst = [...randomizeOrder(list)];
 		data.forEach((subject) => {
-			subject.temas.forEach((tema) => (list = [...list, ...tema.questions]));
+			subject.temas.forEach((tema) => {
+				let questions = [...tema.questions];
+				list = [...list, ...randomizeOrder(questions)]; //
+			});
 		});
 		setIndex(0);
 		setRankedPercentage(0);
 		setCurrentScore(0);
 		setTimer(0);
+
 		setQuestionsToAskFor(randomizeOrder(list));
 	};
 
@@ -103,16 +116,18 @@ const RankedPage = () => {
 		const listLength = list.length;
 		let newList = [];
 		for (let i = 0; i < listLength; i++) {
-			const indexToTakeOut = Math.floor(Math.random() * list.length);
+			let num = Math.random();
+			let multipliedNum = num * list.length;
+			let roundedNum = Math.floor(multipliedNum);
+			const indexToTakeOut = roundedNum;
 			let item = list.splice(indexToTakeOut, 1);
-
 			newList.push(...item);
 		}
-
 		return [...newList];
 	};
 
 	const finishRanked = () => {
+		getDataBase();
 		for (let i = 0; i < topFive.length; i++) {
 			if (currentScore > topFive[i].score) {
 				addMyTopScore(currentScore);
@@ -127,7 +142,7 @@ const RankedPage = () => {
 		// if (currentScore >= maxScore) {
 		// 	resetDataBase(currentScore);
 		// }
-		getDataBase();
+		stopTimer();
 		setEndRanked(true);
 	};
 

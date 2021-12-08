@@ -30,7 +30,7 @@ const data = [
 						answers: ["VII a.C.", "IX a.C. ", "X a.C."],
 					},
 					{
-						question: "¿Quienes eran los fenicios?",
+						question: "¿Quiénes eran los fenicios?",
 						answers: [
 							"Un pueblo de navegantes y comerciantes ",
 							"Un pueblo de guerreros y comerciantes",
@@ -349,7 +349,7 @@ const data = [
 					{ question: "¿En qué año se firmó la paz de Cateau-Cambresis?", answers: ["1559 ", "1557", "1552"], isDate: true },
 					// { question: "¿En qué año ocurrió la paz de Cateau-Cambresis?", answers: ["", "", ""] },   //San Quintín
 					{
-						question: "¿Quienes formaban parte de la Liga Santa?",
+						question: "¿Quiénes formaban parte de la Liga Santa?",
 						answers: [
 							"El papado, Venecia y la Monarquía Hispánica ",
 							"El papado, Venecia y Francia",
@@ -358,7 +358,7 @@ const data = [
 					},
 					//batalla de lepanto
 					{
-						question: "¿Quienes ganaron en la batalla de Lepanto (1571)?",
+						question: "¿Quiénes ganaron en la batalla de Lepanto (1571)?",
 						answers: ["Fue un empate", "El imperio otomano", "La Liga Santa "],
 					}, //añadir preguntas de últimos párrafos
 					{
@@ -409,7 +409,7 @@ const data = [
 						],
 					},
 					{
-						question: "¿A nivel político, ¿qué hizo el Conde-duque de Olivares?",
+						question: "A nivel político, ¿qué hizo el Conde-duque de Olivares?",
 						answers: [
 							"Trató de reforzar la Monarquía Hispánica ",
 							"Trató de recuperar territorios perdidos en Europa",
