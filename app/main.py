@@ -3,11 +3,24 @@ from fastapi import FastAPI
 
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic.networks import EmailStr
 
 
 from .data_functions import add_tema_to_file, get_data_from_file, add_question_to_file, add_subject_to_file
+from pydantic import BaseSettings
+
+
+class Settings(BaseSettings):
+  admin_email: str
+
+  class Config:
+    env_file = ".env"
+ 
+
+
 
 app = FastAPI()
+settings = Settings()
 
 class Question_format(BaseModel):
   question: str
@@ -26,6 +39,9 @@ class Tema_request(BaseModel):
 
 class Subject_request(BaseModel):
   subject_name: str
+
+class Email(BaseModel):
+  email: EmailStr
 
 origins = [
     "http://localhost",
@@ -74,6 +90,6 @@ def add_new_subject(subject_request: Subject_request):
   response = add_subject_to_file(subject_request.dict())
   return response
 
-@app.get("/email")
-def get_email():
-  return {"email": "jurkovs23@gmail.com"}
+@app.post("/email")
+def get_email(email_request: Email):
+  return {"isAdmin": email_request.email == settings.admin_email}
