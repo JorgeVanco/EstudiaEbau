@@ -1,5 +1,6 @@
 import json
 
+# PATH = "./data/real_data.json"
 PATH = "./data/real_data.json"
 
 def get_data_from_file():
@@ -65,6 +66,19 @@ def add_subject_to_file(subject_to_add):
   add_changes(data)
   return subject_to_add
 
+def add_image_to_file(image_to_add):
+  data = get_data_from_file()
+
+  if not check_if_subject_exists(image_to_add, data):
+    return {"Error" : f"Subject: << {image_to_add['subject_name']} >> does not exist"}
+
+  for subject in data:
+    if subject["name"] == image_to_add["subject_name"]:
+      subject["images"].append(image_to_add["img"])
+      add_changes(data)
+  return image_to_add
+
+
 def check_if_subject_exists(request, data):
   subjects = [subject["name"] for subject in data]
   if len(subjects) <= 0: return False
@@ -86,3 +100,4 @@ def check_if_number_of_tema_exists(request,data):
 
   return request["numero"] in numbers
   
+
