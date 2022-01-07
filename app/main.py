@@ -1,9 +1,7 @@
-from fastapi import FastAPI, Depends, status
-from fastapi.exceptions import HTTPException
-from fastapi.security.oauth2 import OAuth2PasswordRequestForm
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
-from .oauth2 import create_access_token, get_current_user
+from .oauth2 import  get_current_user
 from .data_functions import add_tema_to_file, get_data_from_file, add_question_to_file, add_subject_to_file, add_image_to_file
 from .config import settings
 from . import schemas
