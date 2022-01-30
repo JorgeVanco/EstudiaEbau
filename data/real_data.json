@@ -788,6 +788,61 @@
 					},
 					{ "question": "¿En qué año viajó a Nueva York?", "answers": ["1929 ", "1925", "1932"], "isDate": true }
 				]
+			},
+			{
+				"name": "Teatro de Lorca",
+				"numero": 5,
+				"questions": [
+					{
+						"question": "¿Fue exitoso el estreno de 'El maleficio de la mariposa', de Federico García Lorca?",
+						"answers": ["No ", "Sí", "No se llegó a publicar"]
+					},
+					{
+						"question": "¿Qué obra de Federico García Lorca destaca de entre sus obras de teatro vanguardista?",
+						"answers": [
+							"'Mariana Pineda', un drama histórico",
+							"'El público', una de las comedias imposibles ",
+							"'Bodas de sangre'"
+						]
+					},
+					{
+						"question": "¿Cuándo alcanzó Federico García Lorca su etapa de plenitud?",
+						"answers": ["En los años 30 ", "En los años 20", "En los años 40, póstumamente"]
+					},
+					{
+						"question": "En qué año escribió Federico García Lorca 'La casa de Bernarda Alba'?",
+						"answers": ["1934", "1933", "1936 "],
+						"isDate": true
+					},
+					{
+						"question": "¿Cuál es el tema principal de 'La casa de Bernarda Alba'?",
+						"answers": [
+							"Enfrentaminto entre una moral autoritaria y el deseo de libertad individual ",
+							"El sacrificio de las mujeres en esa época",
+							"La infusticia social y la marginación de la mujer"
+						]
+					},
+					{
+						"question": "¿Cómo es el espacio de 'La casa de Bernarda Alba'?",
+						"answers": [
+							"Toda la obra se presenta en la casa de Bernarda ",
+							"No hay un espacio preciso en la obra",
+							"El relato tiene lugar en diferentes lugares del pueblo"
+						]
+					},
+					{
+						"question": "¿Cómo es el tiempo de 'La casa de Bernarda Alba'?",
+						"answers": [
+							"La obra tiene lugar en horas precisas de un mismo día",
+							"No se menciona ninguna hora ni tiempo en la obra",
+							"Las escenas ocurren en horas precisas de distintos días "
+						]
+					},
+					{
+						"question": "¿Cómo es el estilo de 'La casa de Bernarda Alba'?",
+						"answers": ["Predomina un lenguaje poético ", "Predomina un estilo vanguardista", "Predomina un estilo retórico"]
+					}
+				]
 			}
 		]
 	}
