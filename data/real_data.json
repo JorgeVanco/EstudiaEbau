@@ -841,6 +841,79 @@
 					{
 						"question": "¿Cómo es el estilo de 'La casa de Bernarda Alba'?",
 						"answers": ["Predomina un lenguaje poético ", "Predomina un estilo vanguardista", "Predomina un estilo retórico"]
+					},
+					{
+						"question": "¿En cuántos actos se estructura 'La casa de Bernarda Alba'?",
+						"answers": ["3 ", "4", "5"],
+						"isDate": true
+					}
+				]
+			},
+			{
+				"name": "Blas de Otero",
+				"numero": 6,
+				"questions": [
+					{
+						"question": "¿En qué época escribió Blas de Otero sus obras?",
+						"answers": ["En la posguerra ", "En la II República", "Durante la Guerra Civil"]
+					},
+					{
+						"question": "¿Cuál fue la primera obra de Blas de Otero?",
+						"answers": ["'Cántico espiritual' ", "'Ángel fieramente humano'", "'Pido la paz y la palabra'"]
+					},
+					{
+						"question": "¿En qué año se publicó 'Cántico espiritual?",
+						"answers": ["1942 ", "1940", "1945"],
+						"isDate": true
+					},
+					{
+						"question": "¿Cuáles son las tres constantes de la poesía de Blas de Otero?",
+						"answers": [
+							"La problemática religiosa, el desarraigo y lo social ",
+							"La problemática religiosa, la España en ruina y la desigualdad social",
+							"La búsqueda de respuestas a través de la religión y la fomentación de la paz"
+						]
+					},
+					{
+						"question": "¿Qué es el existencialismo en Blas de Otero?",
+						"answers": ["Una etapa de transición ", "Una constante en toda su poesía", "Un título de un libro de poesías"]
+					},
+					{
+						"question": "¿Qué pierde Blas de Otero en su etapa existencial?",
+						"answers": ["La fe ", "Toda su fortuna", "A su madre"]
+					},
+					{
+						"question": "¿Cuál fue el primer libro de poemas de Blas de Otero?",
+						"answers": ["'Ángel fieramente humano' ", "'Redoble de concienca'", "'Ancia'"]
+					},
+					{
+						"question": "¿En qué año publica 'Ancia'?",
+						"answers": ["1958 ", "1950", "1951"],
+						"isDate": true
+					},
+					{
+						"question": "¿Qué personajes hay en la etapa existencial de Blas de Otero?",
+						"answers": [
+							"No hay personajes, pues el poeta no se encuentra a sí mismo",
+							"Un 'yo' y un 'tú', que está ausente ",
+							"Un 'yo' (el poeta) y un 'tú' (Dios) que responde a las preguntas del 'yo'"
+						]
+					},
+					{
+						"question": "¿Qué permite que la poesía existencial de Blas de Otero se vuelva social?",
+						"answers": [
+							"Dirigir su mirada hacia los demás y crear una nueva persona poética ",
+							"La búsqueda de un mundo mejor a través de la poesía",
+							"La pérdida de la fe"
+						]
+					},
+					{
+						"question": "¿En qué año se publica 'Pido la paz y la palabra'?",
+						"answers": ["1955 ", "1959", "1958"]
+					},
+					{
+						"question": "¿Cuál de las siguientes obras está escrita enteramente en prosa?",
+						"answers": ["'Que trata de España'", "'En castellano'", "'Historias fingidas y verdaderas' "]
 					}
 				]
 			}
