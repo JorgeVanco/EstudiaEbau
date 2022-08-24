@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useGlobalContext } from "../context";
 import { FaCheckCircle, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
@@ -7,6 +7,12 @@ const SideBarContents = ({ name }) => {
 	const sidebarRef = useRef();
 	// console.log(data);
 	const dataContent = data.filter((signature) => signature.name === name)[0];
+	console.log(dataContent.temas);
+	dataContent.temas.sort((tema1, tema2) => {
+		return tema1.numero - tema2.numero;
+	});
+	console.log(dataContent.temas);
+
 	// console.log("dataContent", dataContent.estandares);
 	// console.log(isSidebarOpen);
 	const toggleContentToAskFor = (tema) => {

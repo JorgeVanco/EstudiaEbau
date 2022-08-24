@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { FcGoogle } from "react-icons/fc";
-import { Switch, Route, Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context";
 
 const SignInPage = () => {
@@ -19,17 +19,20 @@ const SignInPage = () => {
 			console.error("passwords no coinciden");
 			return;
 		}
+		setLoading(true);
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
-				setLoading(true);
 				// Signed in
 				//const user = userCredential.user;
+				setLoading(false);
+
 				toggleAlert(true, "User created correctly!", "success");
 				setRedirect(true);
 				// ...
 			})
 			.catch((error) => {
 				const errorCode = error.code;
+				setLoading(false);
 				//const errorMessage = error.message;
 				toggleAlert(true, errorCode, "danger");
 				// ..

@@ -1,10 +1,9 @@
-import { sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useState } from "react";
 import { useGlobalContext } from "../context";
-import CreateAccount from "./CreateAccount";
 import { FcGoogle } from "react-icons/fc";
-import { Switch, Route, Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const LogInPage = () => {
 	const [email, setEmail] = useState("");
@@ -18,11 +17,10 @@ const LogInPage = () => {
 			toggleAlert(true, "Please enter email and password", "danger");
 			return;
 		}
-
+		setLoading(true);
 		signInWithEmailAndPassword(auth, email, password)
 			.then((UserCredential) => {
 				// Signed in
-				setLoading(true);
 
 				const user = UserCredential.user;
 				toggleAlert(true, "Signed in succesfully!", "success");
@@ -35,6 +33,7 @@ const LogInPage = () => {
 
 				toggleAlert(true, errorMessage, "danger");
 			});
+		setLoading(false);
 	};
 
 	const forgotPassword = () => {

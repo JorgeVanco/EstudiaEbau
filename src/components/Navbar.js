@@ -1,34 +1,50 @@
 import { signOut } from "@firebase/auth";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-// import { FaBars } from "react-icons/fa";
 import { updateProfile } from "firebase/auth";
+import { URL_FOR_API } from "../api_var";
+import { FaRegEdit } from "react-icons/fa";
 
 import { useGlobalContext } from "../context";
+import axios from "axios";
 
 const Navbar = () => {
-	const { auth, toggleAlert, user, setWantsToGetAccount, setCreateNewAccount } = useGlobalContext();
+	const { auth, toggleAlert, user, setCreateNewAccount } = useGlobalContext();
 	const [editName, setEditName] = useState(false);
 	const [userName, setUserName] = useState("");
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (userName.length <= 0) {
 			setEditName(false);
 			return;
 		}
-		updateProfile(user, {
-			displayName: userName,
-		})
-			.then(() => {
-				// Profile updated!
-				// ...
+		try {
+			const myObj = { username: userName, email: user.email };
+
+			const response = await axios.put(URL_FOR_API + "/users", myObj);
+			console.log(response.data.Error);
+			if (response.data.hasOwnProperty("Error")) {
 				setEditName(false);
+				toggleAlert(true, response.data.Error, "danger");
+				return;
+			}
+			updateProfile(user, {
+				displayName: userName,
 			})
-			.catch((error) => {
-				// An error occurred
-				// ...
-			});
+				.then(() => {
+					// Profile updated!
+					// ...
+					setEditName(false);
+				})
+				.catch((error) => {
+					// An error occurred
+					// ...
+				});
+		} catch (error) {
+			console.error(error);
+			return;
+		}
 	};
 
 	return (
@@ -102,7 +118,10 @@ const Navbar = () => {
 							</button>
 						</form>
 					) : (
-						<h3>{user.displayName}</h3>
+						<h3>
+							{user.displayName} &nbsp;
+							<FaRegEdit />
+						</h3>
 					)}
 				</div>
 			)}

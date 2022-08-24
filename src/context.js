@@ -1,9 +1,11 @@
 import React, { useContext, createContext, useState, useEffect, useCallback } from "react";
 import { auth, db } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-import data from "./data";
-import { doc, getDoc, deleteDoc, setDoc, query, orderBy, limit, collection, getDocs, addDoc } from "firebase/firestore";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+// import data from "./data";
+import { doc, deleteDoc, setDoc, query, orderBy, limit, collection, getDocs, addDoc } from "firebase/firestore";
+import axios from "axios";
+import { URL_FOR_API } from "./api_var";
 
 const AppContext = createContext();
 
@@ -21,9 +23,25 @@ const AppProvider = ({ children }) => {
 	const [topFive, setTopFive] = useState([]);
 	const [idList, setIdList] = useState([]);
 	const [usersRef, setUsersRef] = useState(collection(db, "puntuacion-usuarios"));
+	const [data, setData] = useState([]);
+
+	async function getData() {
+		setLoading(true);
+		try {
+			const response = await axios.get(URL_FOR_API + "/data");
+			setData(response.data);
+		} catch (error) {
+			console.error(error);
+			setLoading(false);
+		}
+		setLoading(false);
+	}
+
+	useEffect(async () => {
+		getData();
+	}, []);
 
 	useEffect(() => {
-		setLoading(true);
 		getDataBase();
 	}, [user]);
 
@@ -31,6 +49,7 @@ const AppProvider = ({ children }) => {
 		// const docRef = doc(db, "puntuacion-usuarios", "score");
 
 		// const usersRef = collection(db, "puntuacion-usuarios");
+		setLoading(true);
 		const q = query(usersRef, orderBy("score"), limit(5));
 		let list = [];
 		let temporaryIdList = [];
@@ -52,6 +71,7 @@ const AppProvider = ({ children }) => {
 				setMaxScore(0);
 			}
 		}
+		setLoading(false);
 	};
 
 	const closeSidebar = () => setIsSidebarOpen(false);
@@ -64,15 +84,17 @@ const AppProvider = ({ children }) => {
 
 	const signInWithGoogle = () => {
 		const provider = new GoogleAuthProvider();
+		setLoading(true);
 		signInWithPopup(auth, provider)
 			.then((result) => {
-				setLoading(true);
 				// This gives you a Google Access Token. You can use it to access the Google API.
 				const credential = GoogleAuthProvider.credentialFromResult(result);
 				const token = credential.accessToken;
 				// The signed-in user info.
 				//const user1 = result.user;
 				// console.log(token);
+				setLoading(false);
+
 				toggleAlert(true, "Signed in succesfully!", "success");
 				setRedirect(true);
 				// ...
@@ -85,6 +107,7 @@ const AppProvider = ({ children }) => {
 				const email = error.email;
 				// The AuthCredential type that was used.
 				const credential = GoogleAuthProvider.credentialFromError(error);
+				setLoading(false);
 				// ...
 				toggleAlert(true, errorMessage, "danger");
 			});

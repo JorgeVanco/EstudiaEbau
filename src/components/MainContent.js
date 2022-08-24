@@ -1,13 +1,16 @@
 import Card from "./Card";
 import { useGlobalContext } from "../context";
-import CountDown from "./CountDown";
-import { Link, Redirect } from "react-router-dom";
-import { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const MainContent = () => {
 	const { data, toggleAlert, user, topFive } = useGlobalContext();
 	const [redirect, setRedirect] = useState(false);
-	// const [top, setTop] = useState(topFive);
+	const [redirectToAddQuestions, setRedirectToAddQuestions] = useState(false);
+	const [adminEmail, setAdminEmail] = useState("");
+	const [isAdmin, setIsAdmin] = useState("");
+
 	const handle_button = () => {
 		if (user && user.emailVerified) {
 			setRedirect(true);
@@ -19,11 +22,34 @@ const MainContent = () => {
 			toggleAlert(true, "Inicie sesión para acceder a este contenido", "danger");
 		}
 	};
+	const get_admin_email = async () => {
+		const response = await axios.post("https://estudia-ebau-api.herokuapp.com/email", { email: user.email });
+		setIsAdmin(response.data.isAdmin);
+	};
+
+	useEffect(() => {
+		if (user) {
+			get_admin_email();
+		}
+	}, []);
+
+	const handle_add_questions_button = () => {
+		setRedirectToAddQuestions(true);
+	};
 
 	if (redirect) return <Redirect to='/ranked' />;
+	if (redirectToAddQuestions) return <Redirect to='/add-questions' />;
 
 	return (
 		<>
+			{user && isAdmin && (
+				<div>
+					<button type='btn' className='ranked-btn' onClick={handle_add_questions_button}>
+						Añade preguntas
+					</button>
+				</div>
+			)}
+
 			<div className='intro'>
 				<div>
 					<h1 className='intro-title'>Preparación para la EBAU</h1>

@@ -12,15 +12,16 @@ const SignIn = () => {
 
 	const signInWithGoogle = () => {
 		const provider = new GoogleAuthProvider();
+		setLoading(true);
 		signInWithPopup(auth, provider)
 			.then((result) => {
-				setLoading(true);
 				// This gives you a Google Access Token. You can use it to access the Google API.
 				const credential = GoogleAuthProvider.credentialFromResult(result);
 				const token = credential.accessToken;
 				// The signed-in user info.
 				//const user1 = result.user;
 				// console.log(token);
+				setLoading(false);
 				toggleAlert(true, "Signed in succesfully!", "success");
 
 				// ...
@@ -34,6 +35,7 @@ const SignIn = () => {
 				// The AuthCredential type that was used.
 				const credential = GoogleAuthProvider.credentialFromError(error);
 				// ...
+				setLoading(false);
 				toggleAlert(true, errorMessage, "danger");
 			});
 	};
@@ -45,10 +47,11 @@ const SignIn = () => {
 			return;
 		}
 
+		setLoading(true);
 		signInWithEmailAndPassword(auth, email, password)
 			.then((UserCredential) => {
 				// Signed in
-				setLoading(true);
+				setLoading(false);
 
 				const user = UserCredential.user;
 				toggleAlert(true, "Signed in succesfully!", "success");
@@ -58,6 +61,7 @@ const SignIn = () => {
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
+				setLoading(false);
 
 				toggleAlert(true, errorMessage, "danger");
 			});

@@ -18,14 +18,12 @@ const CreateAccount = ({ setCreateNewAccount, signUpWithGoogle }) => {
 			console.error("passwords no coinciden");
 			return;
 		}
+		setLoading(true);
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
-				setLoading(true);
+				setLoading(false);
 				// Signed in
 				const user = userCredential.user;
-				user.phoneNumber = "+342222";
-				console.log("Createdddddddddddddd");
-				console.log("credential:", userCredential.user);
 				toggleAlert(true, "User created correctly!", "success");
 
 				// ...

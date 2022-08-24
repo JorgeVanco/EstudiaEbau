@@ -1,38 +1,6 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const CongratulationsPage = ({ percentage, name, resetQuestions, isRanked }) => {
-	//className='congratulations-title'
-
-	// const func = () => {
-	// 	// Obtener el valor porcentual  => percentage
-	// 	var value = percentage;
-
-	// 	// Cuando el porcentaje es menor o igual a 50
-	// 	if (percentage <= 50) {
-	// 		var html = "";
-
-	// 		html += '<div className="mask-right" style="transform:rotate(' + value * 3.6 + 'deg)"></div>';
-
-	// 		// Agrega elementos secundarios al elemento
-	// 		$(".circle-right").append(html);
-	// 	} else {
-	// 		value -= 50;
-	// 		var html = "";
-
-	// 		html += '<div className="circle-left">';
-	// 		html += '<div className="mask-left" style="transform:rotate(' + value * 3.6 + 'deg)"></div>';
-	// 		html += "</div>";
-
-	// 		// Agregar elemento tras elemento
-	// 		$(".circle-right").after(html);
-	// 	}
-	// };
-
-	// useEffect(() => {
-	// 	func();
-	// }, []);
-
 	if (isRanked) {
 		return (
 			<div className='congratulations-div'>

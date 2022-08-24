@@ -204,6 +204,27 @@ body {
 	background-clip: border-box;
 }
 
+.form-api {
+	background-color: white !important;
+	position: absolute;
+	left: 5%;
+	top: 20%;
+	display: block;
+	width: 90%;
+	height: auto;
+	padding-top: 16px;
+	padding-right: 22px;
+	padding-left: 22px;
+	grid-auto-columns: 1fr;
+	-ms-grid-columns: 1fr 1fr;
+	border-radius: 3px;
+	background-color: transparent;
+	box-shadow: 1px 1px 3px 0 #000;
+	text-align: center;
+	font-weight: bold;
+	background-clip: border-box;
+}
+
 .form-container {
 	text-align: center;
 }

@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context";
 import CongratulationsPage from "./CongratulationsPage";
 import QuestionComponent from "./QuestionComponent";
-import { collection, setDoc, deleteDoc } from "firebase/firestore"; //https://firebase.google.com/docs/firestore/query-data/get-data
 const RankedPage = () => {
 	const {
 		data,
