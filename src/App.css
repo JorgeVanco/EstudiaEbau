@@ -947,14 +947,14 @@ nav {
 }
 .nav-btn {
 	/* display: inline-block; */
-	position: relative;
+	/* position: relative;
+	top: 50%; */
 	margin: 0 10px;
-	top: 50%;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-	left: 30%;
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
+	/* -ms-transform: translateY(-50%);
+	transform: translateY(-50%); */
+	/* left: 30%; */
+	/* -ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%); */
 	transition: all 700ms !important;
 }
 /* .nav-btn-only {
@@ -1096,6 +1096,8 @@ nav {
 }
 .links-container {
 	width: 25%;
+	display: flex;
+	/* flex-wrap: wrap; */
 	height: 8vh;
 	float: right;
 	align-items: center;
