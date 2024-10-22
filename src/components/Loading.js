@@ -1,14 +1,14 @@
 import { useGlobalContext } from "../context";
 
 const Loading = () => {
-	const { setLoading } = useGlobalContext();
+	// const { setLoading } = useGlobalContext();
 	// useEffect(() => {
 	// 	const timeout = setTimeout(() => {
 	// 		setLoading(false);
 	// 	}, 1000);
 	// 	return () => clearTimeout(timeout);
 	// }, []);
-
+	console.log("Loading");
 	return (
 		<div className='d-flex justify-content-center'>
 			<div

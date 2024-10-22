@@ -33,6 +33,7 @@ const QuestionComponent = ({
 	const [correctAnswer, setCorrectAnswer] = useState("");
 	const answerDivRef = useRef(null);
 	const [rankedWrongAnswer, setRankedWrongAnswer] = useState(false);
+	const [answerTime, setAnswerTime] = useState(0);
 
 	useEffect(() => {
 		let newRandomizedAnswers = randomizeOrder([...answers]);
@@ -69,6 +70,7 @@ const QuestionComponent = ({
 				}
 			}
 			setIsAnswered(true);
+			setAnswerTime(timer * 10);
 			setProgression(progression + 1);
 		}
 	};
@@ -165,7 +167,7 @@ const QuestionComponent = ({
 			<ProgressBar
 				percentage={rankedPercentage || Math.round(((progression / length) * 100 + Number.EPSILON) * 100) / 100}
 			/>
-			{isRanked && <ProgressBar percentage={timer * 10} isTimer={true} />}
+			{isRanked && <ProgressBar percentage={isAnswered? answerTime: timer * 10} isTimer={true} />}
 
 			<div className='questionContainer'>
 				<div className='Question'>

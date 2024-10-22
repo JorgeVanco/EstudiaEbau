@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { useGlobalContext } from "./context";
 import "./firebase";
@@ -19,126 +19,118 @@ import axios from "axios";
 import { URL_FOR_API } from "./api_var";
 
 function App() {
-	const { auth, user, setLoading, loading, alert, toggleAlert, data, redirect, setRedirect } = useGlobalContext();
+	const { auth, user, setLoading, loading, alert, toggleAlert, data, redirect, setRedirect , getDataBase} = useGlobalContext();
 	const [email, setEmail] = useState("");
 	const [isVerified, setIsVerified] = useState(true);
 
-	useEffect(async () => {
+	useEffect(() => {
 		//checkForLogin(email, setEmail);
 		// setLoading(true);
-		if (user) {
-			toggleAlert(true, "Logged in", "success");
-			setEmail(user.email);
-			let is_user_in_db = false;
-			const users_response = await axios.get(URL_FOR_API + "/users");
-			for (let user_in_db of users_response.data) {
-				if (user_in_db.email === user.email) {
-					is_user_in_db = true;
+		async function checkUser() {
+			if (user) {
+				toggleAlert(true, "Logged in", "success");
+				setEmail(user.email);
+				let is_user_in_db = false;
+				const users_response = await axios.get(URL_FOR_API + "/users");
+				for (let user_in_db of users_response.data) {
+					if (user_in_db.email === user.email) {
+						is_user_in_db = true;
+					}
 				}
-			}
 
-			if (!is_user_in_db) {
-				if (user.displayName === null || user.displayName.length <= 0) {
-					let response = await axios.post(URL_FOR_API + "/users", {
-						email: user.email,
-						username: user.email.slice(0, user.email.indexOf("@")),
-					});
-					if (response.data.hasOwnProperty("Error")) {
-						let new_username;
-						while (response.data.hasOwnProperty("Error")) {
-							new_username = user.email.slice(0, user.email.indexOf("@")) + Math.floor(Math.random() * 10000).toString();
-							response = await axios.post(URL_FOR_API + "/users", {
-								email: user.email,
-								username: new_username,
+				if (!is_user_in_db) {
+					if (user.displayName === null || user.displayName.length <= 0) {
+						let response = await axios.post(URL_FOR_API + "/users", {
+							email: user.email,
+							username: user.email.slice(0, user.email.indexOf("@")),
+						});
+						if (response.data.hasOwnProperty("Error")) {
+							let new_username;
+							while (response.data.hasOwnProperty("Error")) {
+								new_username = user.email.slice(0, user.email.indexOf("@")) + Math.floor(Math.random() * 10000).toString();
+								response = await axios.post(URL_FOR_API + "/users", {
+									email: user.email,
+									username: new_username,
+								});
+							}
+							updateProfile(user, {
+								displayName: new_username,
+							});
+						} else {
+							updateProfile(user, {
+								displayName: user.email.slice(0, user.email.indexOf("@")),
 							});
 						}
-						updateProfile(user, {
-							displayName: new_username,
-						});
 					} else {
-						updateProfile(user, {
-							displayName: user.email.slice(0, user.email.indexOf("@")),
+						const response = await axios.post(URL_FOR_API + "/users", {
+							email: user.email,
+							username: user.email.slice(0, user.email.indexOf("@")),
 						});
 					}
-				} else {
-					const response = await axios.post(URL_FOR_API + "/users", {
-						email: user.email,
-						username: user.email.slice(0, user.email.indexOf("@")),
+				}
+
+				if (!user.emailVerified) {
+					sendEmailVerification(auth.currentUser).then(() => {
+						// Email verification sent!
+						// ...
+						setIsVerified(false);
+						toggleAlert(true, "Email verification sent", "success");
 					});
 				}
 			}
-
-			if (!user.emailVerified) {
-				sendEmailVerification(auth.currentUser).then(() => {
-					// Email verification sent!
-					// ...
-					setIsVerified(false);
-					toggleAlert(true, "Email verification sent", "success");
-				});
-			}
 		}
+		checkUser();
 	}, [user, auth.currentUser]);
 
 	if (redirect) {
 		setRedirect(false);
-		return <Redirect to='/' />;
+		return <Navigate to='/' />;
 	}
-	if (loading) {
-		return <Loading />;
-	}
-
-	// if (!isVerified) {
-	// 	return (
-	// 		<>
-	// 			{alert.show && <Alert {...alert} />}
-	// 			<h1>You must verify your email</h1>
-	// 		</>
-	// 	);
+	// if (loading) {
+	// 	return <Loading />;
 	// }
+
+	if (!isVerified) {
+		return (
+			<>
+				{alert.show && <Alert {...alert} />}
+				<h1>You must verify your email</h1>
+			</>
+		);
+	}
 
 	return (
 		<>
 			<Navbar />
 			{alert.show && <Alert {...alert} />}
 
-			<Switch>
-				<Route exact path='/'>
-					<MainContent />
-				</Route>
+			<Routes>
+				<Route exact path='/' element={<MainContent />}/>
 
-				<Route path='/SignIn'>
-					<SignInPage />
-				</Route>
-				<Route path='/LogIn'>
-					<LogInPage />
-				</Route>
-				<Route exact path='/add-questions'>
-					<AddQuestionsPage />
-				</Route>
+				<Route path='/SignIn' element={<SignInPage />}/>
 
-				<Route path='/ranked'>
-					<RankedPage />
-				</Route>
-				<Route path='/loading'>
-					<Loading />
-				</Route>
+				<Route path='/LogIn' element={<LogInPage />}/>
+
+				<Route exact path='/add-questions' element={<AddQuestionsPage />}/>
+
+				<Route path='/ranked' element={<RankedPage />}/>
+
+				<Route path='/loading' element={<Loading />}/>
+
 				{data.map((subject, index) => {
 					return (
-						<Route path={`/${subject.name}`} key={index}>
-							<QuestionPage name={subject.name} />
-						</Route>
+						<Route path={`/${subject.name}`} key={index} element={<QuestionPage name={subject.name} />}/>
 					);
 				})}
 
-				<Route path='*'>
-					<h1>Error page</h1>
-				</Route>
-			</Switch>
+				<Route path='*' element={<h1>Error page</h1>}/>
+
+			</Routes>
 			{/* {user ? (
 				<>
 					<Navbar />
 					{alert.show && <Alert {...alert} />}
-					<Switch>
+					<Routes>
 						<Route exact path='/'>
 							<MainContent />
 						</Route>
@@ -155,7 +147,7 @@ function App() {
 						<Route path='*'>
 							<h1>Error page</h1>
 						</Route>
-					</Switch>
+					</Routes>
 				</>
 			) : (
 				<>

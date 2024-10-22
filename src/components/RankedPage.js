@@ -35,7 +35,7 @@ const RankedPage = () => {
 		// 	} else {
 		// 	}
 		// });
-		setRightAnswers(0); //para evitar que pueda tener corretas sin hacetrlas al bajar contenido
+		setRightAnswers(0); //para evitar que pueda tener corretas sin hacerlas al bajar contenido
 		getDataBase();
 		resetRanked();
 	}, []);

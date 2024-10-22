@@ -32,18 +32,15 @@ const AppProvider = ({ children }) => {
 			setData(response.data);
 		} catch (error) {
 			console.error(error);
-			setLoading(false);
 		}
 		setLoading(false);
 	}
 
-	useEffect(async () => {
+	useEffect(() => {
 		getData();
 	}, []);
 
-	useEffect(() => {
-		getDataBase();
-	}, [user]);
+	
 
 	const getDataBase = async () => {
 		// const docRef = doc(db, "puntuacion-usuarios", "score");
@@ -52,7 +49,7 @@ const AppProvider = ({ children }) => {
 		setLoading(true);
 		const q = query(usersRef, orderBy("score"), limit(5));
 		let list = [];
-		let temporaryIdList = [];
+		let temporaryIdList= [];
 
 		if (q) {
 			const querySnapshot = await getDocs(q);
@@ -73,6 +70,10 @@ const AppProvider = ({ children }) => {
 		}
 		setLoading(false);
 	};
+
+	useEffect(() => {
+		getDataBase();
+	}, [user]);
 
 	const closeSidebar = () => setIsSidebarOpen(false);
 

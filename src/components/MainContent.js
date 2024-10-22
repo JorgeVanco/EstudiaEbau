@@ -1,8 +1,9 @@
 import Card from "./Card";
 import { useGlobalContext } from "../context";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { URL_FOR_API } from "../api_var";
 
 const MainContent = () => {
 	const { data, toggleAlert, user, topFive } = useGlobalContext();
@@ -23,7 +24,7 @@ const MainContent = () => {
 		}
 	};
 	const get_admin_email = async () => {
-		const response = await axios.post("https://estudia-ebau-api.herokuapp.com/email", { email: user.email });
+		const response = await axios.post(URL_FOR_API+"/email", { email: user.email });
 		setIsAdmin(response.data.isAdmin);
 	};
 
@@ -37,8 +38,8 @@ const MainContent = () => {
 		setRedirectToAddQuestions(true);
 	};
 
-	if (redirect) return <Redirect to='/ranked' />;
-	if (redirectToAddQuestions) return <Redirect to='/add-questions' />;
+	if (redirect) return <Navigate to='/ranked' />;
+	if (redirectToAddQuestions) return <Navigate to='/add-questions' />;
 
 	return (
 		<>
