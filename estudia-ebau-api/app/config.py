@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    admin_email: str
+    admin_email: list
     secret_key: str
     algorithm: str
     access_token_expire_minutes: int
