@@ -1,0 +1,62 @@
+/* CopyablePrompt.module.css */
+.container {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #111827;
+}
+
+.promptWrapper {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.promptText {
+  padding: 16px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #374151;
+  margin: 0;
+  font-family: monospace;
+}
+
+.copyButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 8px 12px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.copyButton:hover {
+  background-color: #2563eb;
+}
+
+.copied {
+  background-color: #10b981;
+}
+
+.helpText {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 8px;
+}
